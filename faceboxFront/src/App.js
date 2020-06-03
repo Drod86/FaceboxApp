@@ -1,4 +1,4 @@
-import React, {Component } from 'react';
+import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import Navigation from './Components/Navigation/Navigation';
@@ -37,6 +37,12 @@ class App extends Component {
       signedIn: false
     }
   }
+
+componentDidMount() {
+  fetch('http://localhost:3001/')
+    .then(response => response.json())
+    .then(console.log)
+}
 
   calcBox = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
