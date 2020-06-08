@@ -34,12 +34,14 @@ class Register extends Component {
 		})
 		.then(response => response.json())
 		.then(user => {
-			if (user) {
+			if (user.id) {
 				this.props.loadUser(user);
 				this.props.onRouteChange('home');
 			}
 		})
 	}
+
+	onEnter = (event) => (event.charCode === 13) ? this.onSubmitRegister() : 'null'
 
 	render() {
 		return (
@@ -72,6 +74,7 @@ class Register extends Component {
 				        <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
 				        <input 
 				        	onChange={this.onPasswordChange}
+				        	onKeyPress={this.onEnter}
 				        	className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
 				        	type="password" 
 				        	name="password"  

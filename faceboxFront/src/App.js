@@ -27,23 +27,25 @@ const particlesOptions = {
   }
 }
 
+const initialState ={
+  input: '',
+    imageUrl: '',
+    box: {},
+    route: 'landing',
+    signedIn: false,
+    user: {
+      id: '',
+      name: '',
+      email: '',
+      entries: '',
+      joined: ''
+    }
+}
+
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      signedIn: false,
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        entries: '',
-        joined: ''
-      }
-    }
+    this.state = initialState;
   }
 
   loadUser = (data) => {
@@ -77,7 +79,7 @@ class App extends Component {
     this.setState({input: event.target.value})
   }
 
-  onSubmit = () => {
+  onSubmitImage = () => {
     this.setState({imageUrl: this.state.input})
     app.models
     .predict(
@@ -96,15 +98,18 @@ class App extends Component {
         .then(count => {
           this.setState(Object.assign(this.state.user, { entries: count }))
         })
+        .catch(console.log)
       }
       this.displayBox(this.calcBox(response))
     })
     .catch(err => console.log(err));
   }
 
+  onImagePressEnter = (event) => (event.charCode === 13) ? this.onSubmitImage() : 'null'
+
   onRouteChange = (route) => {
-    if (route === 'signout') {
-      this.setState({signedIn: false})
+    if (route === 'landing') {
+      this.setState(initialState)
     } else if (route === 'home') {
       this.setState({signedIn: true})
     }
@@ -125,11 +130,12 @@ class App extends Component {
               <Rank name={this.state.user.name} entries={this.state.user.entries}/>
               <ImageLinkForm 
                 onInputChange={this.onInputChange} 
-                onSubmit={this.onSubmit}
+                onSubmitImage={this.onSubmitImage}
+                onImagePressEnter={this.onImagePressEnter}
               />
               <Facebox box={box} imageUrl={imageUrl} />
             </div>
-          : route === 'signin' 
+          : route === 'landing' 
             ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/> 
             : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
         }
