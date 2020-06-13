@@ -1,0 +1,23 @@
+{
+  "name": "FaceboxApp",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "12.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Drod86/FaceboxApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Drod86/FaceboxApp/issues"
+  },
+  "homepage": "https://github.com/Drod86/FaceboxApp#readme"
+}
